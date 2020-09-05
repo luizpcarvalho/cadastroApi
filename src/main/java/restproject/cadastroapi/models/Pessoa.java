@@ -1,13 +1,19 @@
 package restproject.cadastroapi.models;
 
+import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Pessoa {
 
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
+
+    @NotBlank(message = "nascimento é obrigatório")
     private Date nascimento;
+
+    @NotBlank(message = "cep é obrigatório")
     private String cep;
 
     public String getNome() {
