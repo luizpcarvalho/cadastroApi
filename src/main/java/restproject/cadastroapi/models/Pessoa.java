@@ -1,8 +1,14 @@
 package restproject.cadastroapi.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Pessoa {
@@ -10,10 +16,12 @@ public class Pessoa {
     @NotBlank(message = "Nome é obrigatório")
     private String nome;
 
-    @NotBlank(message = "nascimento é obrigatório")
+    //@JsonFormat(pattern = "dd-MM-yyyy")
+    @NotNull(message = "Data é obrigatória")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date nascimento;
 
-    @NotBlank(message = "cep é obrigatório")
+    @NotBlank(message = "CEP é obrigatório")
     private String cep;
 
     public String getNome() {
@@ -28,13 +36,8 @@ public class Pessoa {
         return nascimento;
     }
 
-    public void setNascimento(String nascimento) {
-        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            this.nascimento = fmt.parse(nascimento);
-        }catch (ParseException e){
-            System.out.println("Data inválida");
-        }
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
     }
 
     public String getCep() {
