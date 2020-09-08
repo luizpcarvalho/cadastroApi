@@ -1,21 +1,39 @@
 package restproject.cadastroapi.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import restproject.cadastroapi.models.Pessoa;
+import restproject.cadastroapi.models.ApiErrorResponse;
+import restproject.cadastroapi.models.PessoaRequest;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(PessoaController.BASE_URL)
 public class PessoaController {
 
-    public static final String BASE_URL = "/cadastro";
+    public static final String BASE_URL = "/pessoas";
 
     @PostMapping
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void salvarPessoa(@RequestBody Pessoa pessoa){
-        System.out.println("Nome: " + pessoa.getNome());
-        System.out.println("Nascimento: " + pessoa.getNascimento());
-        System.out.println("CEP: " + pessoa.getCep());
+    public ResponseEntity<String> salvarPessoa(@Valid @RequestBody PessoaRequest pessoaRequest) {
+        // pessoaRepository.save(pessoa);
+        return ResponseEntity.ok("Dados inseridos com sucesso");
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public List<ApiErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException e){
+        List<ApiErrorResponse> erros = new ArrayList<>();
+        e.getBindingResult().getFieldErrors().forEach(er -> {
+            ApiErrorResponse erro = new ApiErrorResponse();
+            erro.setCampo(er.getField());
+            erro.setMensagem(er.getDefaultMessage());
+            erros.add(erro);
+        });
+        return erros;
     }
 
 }

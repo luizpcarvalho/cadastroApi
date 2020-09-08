@@ -1,13 +1,16 @@
 package restproject.cadastroapi.models;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
 
-public class Pessoa {
+public class PessoaRequest {
 
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
-    private Date nascimento;
+
+    @NotBlank(message = "Data é obrigatória")
+    private String nascimento;
+
+    @NotBlank(message = "CEP é obrigatório")
     private String cep;
 
     public String getNome() {
@@ -18,17 +21,12 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public Date getNascimento() {
+    public String getNascimento() {
         return nascimento;
     }
 
     public void setNascimento(String nascimento) {
-        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            this.nascimento = fmt.parse(nascimento);
-        }catch (ParseException e){
-            System.out.println("Data inválida");
-        }
+        this.nascimento = nascimento;
     }
 
     public String getCep() {
