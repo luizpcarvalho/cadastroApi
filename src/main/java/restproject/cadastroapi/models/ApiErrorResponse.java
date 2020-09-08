@@ -7,7 +7,6 @@ public class ApiErrorResponse {
 
     private String campo;
     private String mensagem;
-    private HttpStatus httpStatus;
 
     public String getCampo() {
         return campo;
@@ -23,14 +22,6 @@ public class ApiErrorResponse {
 
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
-    }
-
-    public HttpStatus getHttpStatus() {
-        return httpStatus;
-    }
-
-    public void setHttpStatus(HttpStatus httpStatus) {
-        this.httpStatus = httpStatus;
     }
 
 }

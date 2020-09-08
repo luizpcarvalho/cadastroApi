@@ -2,7 +2,7 @@ package restproject.cadastroapi.models;
 
 import javax.validation.constraints.NotBlank;
 
-public class PessoaResponse {
+public class PessoaRequest {
 
     @NotBlank(message = "Nome é obrigatório")
     private String nome;
