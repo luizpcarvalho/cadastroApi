@@ -1,7 +1,6 @@
 package restproject.cadastroapi.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,7 +24,7 @@ public class PessoaController {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler({MethodArgumentNotValidException.class})
     public Map<String, String> handleMethodArgumentNotValid(MethodArgumentNotValidException e){
         Map<String, String> erros = new HashMap<>();
         e.getBindingResult().getFieldErrors().forEach(erro ->
