@@ -6,6 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import restproject.cadastroapi.models.ApiErrorResponse;
 import restproject.cadastroapi.models.PessoaRequest;
+import restproject.cadastroapi.repository.PessoaRepository;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -17,10 +18,21 @@ public class PessoaController {
 
     public static final String BASE_URL = "/pessoas";
 
+    public static PessoaRepository pessoaRepository;
+
+    public PessoaController(PessoaRepository pessoaRepository) {
+        this.pessoaRepository = pessoaRepository;
+    }
+
     @PostMapping
     public ResponseEntity<String> salvarPessoa(@Valid @RequestBody PessoaRequest pessoaRequest) {
-        // pessoaRepository.save(pessoa);
+        pessoaRepository.save(pessoaRequest);
         return ResponseEntity.ok("Dados inseridos com sucesso");
+    }
+
+    @GetMapping
+    public Iterable<PessoaRequest> listarPessoas(){
+        return pessoaRepository.findAll();
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
