@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.3.3.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
+	id "org.flywaydb.flyway" version "6.5.5"
 }
 
 group = 'restproject.cadastro-api'
@@ -17,9 +18,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.postgresql:postgresql'
+	implementation 'org.flywaybd:flyway-core'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+}
+
+flyway {
+	url = 'jdbc:postgresql://localhost:5432/cadastro-api'
+	user = 'postgres'
+	password = '1234'
 }
 
 test {
