@@ -18,16 +18,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.postgresql:postgresql'
-	implementation 'org.flywaybd:flyway-core'
+	implementation 'org.flywaydb:flyway-core'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-}
-
-flyway {
-	url = 'jdbc:postgresql://localhost:5432/cadastro-api'
-	user = 'postgres'
-	password = '1234'
 }
 
 test {
