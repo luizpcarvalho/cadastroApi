@@ -1,6 +1,6 @@
-create table pessoa_request (
-    id bigint not null,
-    nome varchar(255) not null,
-    nascimento varchar(255) not null,
-    cep varchar(255) not null
+create table if not exists pessoa (
+    id varchar(100) PRIMARY KEY,
+    nome varchar(100) not null,
+    nascimento date not null,
+    cep varchar(10) not null
 );

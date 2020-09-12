@@ -1,7 +1,4 @@
-package restproject.cadastroapi.models;
-
-
-import org.springframework.http.HttpStatus;
+package restproject.cadastroapi.response;
 
 public class ApiErrorResponse {
 

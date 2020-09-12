@@ -1,17 +1,10 @@
-package restproject.cadastroapi.models;
+package restproject.cadastroapi.request;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
-@Entity
 public class PessoaRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
     @NotBlank(message = "Nome é obrigatório")
     private String nome;
@@ -21,6 +14,10 @@ public class PessoaRequest {
 
     @NotBlank(message = "CEP é obrigatório")
     private String cep;
+
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
 
     public String getNome() {
         return nome;

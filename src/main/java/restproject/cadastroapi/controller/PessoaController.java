@@ -1,11 +1,11 @@
 package restproject.cadastroapi.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import restproject.cadastroapi.models.ApiErrorResponse;
-import restproject.cadastroapi.models.PessoaRequest;
+import restproject.cadastroapi.response.ApiErrorResponse;
+import restproject.cadastroapi.request.PessoaRequest;
+import restproject.cadastroapi.response.PessoaResponse;
 import restproject.cadastroapi.repository.PessoaRepository;
 
 import javax.validation.Valid;
@@ -25,9 +25,11 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<String> salvarPessoa(@Valid @RequestBody PessoaRequest pessoaRequest) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public PessoaResponse salvarPessoa(@Valid @RequestBody PessoaRequest pessoaRequest) {
         pessoaRepository.save(pessoaRequest);
-        return ResponseEntity.ok("Dados inseridos com sucesso");
+        PessoaResponse pessoaResponse = new PessoaResponse(pessoaRequest.getId());
+        return pessoaResponse;
     }
 
     @GetMapping
