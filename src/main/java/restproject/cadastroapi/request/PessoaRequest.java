@@ -2,6 +2,7 @@ package restproject.cadastroapi.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class PessoaRequest {
 
@@ -17,6 +18,7 @@ public class PessoaRequest {
     private String nascimento;
 
     @NotBlank(message = "CEP é obrigatório")
+    @Size(max = 10)
     private String cep;
 
     public String getId() { return id; }
