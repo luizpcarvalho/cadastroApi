@@ -20,6 +20,8 @@ import java.util.List;
 public class PessoaController {
 
     public static final String BASE_URL = "/pessoas";
+
+    // TODO Criar annotation para validar data
     public static final DateTimeFormatter FORMATO_BR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static PessoaRepository pessoaRepository;
@@ -37,11 +39,13 @@ public class PessoaController {
         return pessoaResponse;
     }
 
+    // TODO Definir payload a ser retornado para este método, quais atributos?
     @GetMapping
     public Iterable<PessoaEntity> listarPessoas(){
         return pessoaRepository.findAll();
     }
 
+    // TODO Refatorar Exception handler para outro pacote
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public List<ApiErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException e){
