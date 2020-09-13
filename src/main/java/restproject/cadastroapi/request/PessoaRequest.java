@@ -47,3 +47,5 @@ public class PessoaRequest {
     public void setCep(String cep) { this.cep = cep; }
 
 }
+
+// TODO Criar estrutura para padrões de mensagem
