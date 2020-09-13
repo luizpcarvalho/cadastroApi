@@ -1,8 +1,11 @@
 package restproject.cadastroapi.request;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public class PessoaRequest {
+
+    private static final String REGEX_VALIDA_DATA = "^(?:(?:31(\\/)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
 
     private String id;
 
@@ -10,6 +13,7 @@ public class PessoaRequest {
     private String nome;
 
     @NotBlank(message = "Data é obrigatória")
+    @Pattern(message = "Data inválida", regexp = REGEX_VALIDA_DATA)
     private String nascimento;
 
     @NotBlank(message = "CEP é obrigatório")
@@ -31,15 +35,10 @@ public class PessoaRequest {
         return nascimento;
     }
 
-    public void setNascimento(String nascimento) {
-        this.nascimento = nascimento;
-    }
+    public void setNascimento(String nascimento) { this.nascimento = nascimento; }
 
-    public String getCep() {
-        return cep;
-    }
+    public String getCep() { return cep; }
 
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
+    public void setCep(String cep) { this.cep = cep; }
+
 }
