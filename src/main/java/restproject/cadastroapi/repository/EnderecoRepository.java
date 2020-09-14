@@ -2,8 +2,8 @@ package restproject.cadastroapi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import restproject.cadastroapi.entity.PessoaEntity;
+import restproject.cadastroapi.entity.EnderecoEntity;
 
 @Repository
-public interface PessoaRepository extends JpaRepository<PessoaEntity, String> {
+public interface EnderecoRepository extends JpaRepository<EnderecoEntity, String> {
 }

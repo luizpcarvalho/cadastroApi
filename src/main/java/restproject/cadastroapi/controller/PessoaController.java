@@ -3,6 +3,7 @@ package restproject.cadastroapi.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import restproject.cadastroapi.entity.EnderecoEntity;
 import restproject.cadastroapi.entity.PessoaEntity;
 import restproject.cadastroapi.response.ApiErrorResponse;
 import restproject.cadastroapi.request.PessoaRequest;
@@ -33,7 +34,8 @@ public class PessoaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PessoaResponse salvarPessoa(@Valid @RequestBody PessoaRequest pessoaRequest) {
-        PessoaEntity pessoaEntity = new PessoaEntity(pessoaRequest.getId(), pessoaRequest.getNome(), LocalDate.parse(pessoaRequest.getNascimento(), FORMATO_BR), pessoaRequest.getCep());
+        EnderecoEntity endereco = EnderecoController.obterEndereco(pessoaRequest.getCep());
+        PessoaEntity pessoaEntity = new PessoaEntity(pessoaRequest.getId(), pessoaRequest.getNome(), LocalDate.parse(pessoaRequest.getNascimento(), FORMATO_BR), pessoaRequest.getCep(), endereco);
         pessoaRepository.save(pessoaEntity);
         PessoaResponse pessoaResponse = new PessoaResponse(pessoaRequest.getId());
         return pessoaResponse;
@@ -41,8 +43,18 @@ public class PessoaController {
 
     // TODO Definir payload a ser retornado para este método, quais atributos?
     @GetMapping
-    public Iterable<PessoaEntity> listarPessoas(){
-        return pessoaRepository.findAll();
+    public List<PessoaEntity> listarPessoas(){
+        List<PessoaEntity> pessoas = new ArrayList<>();
+        pessoaRepository.findAll().forEach(pessoa -> {
+            pessoas.add(pessoa);
+        });
+        return pessoas;
+    }
+
+    @GetMapping("/{id}")
+    public PessoaEntity buscarPessoa(@PathVariable(name = "id") String id){
+        PessoaEntity pessoaEntity = pessoaRepository.findById(id).get();
+        return pessoaEntity;
     }
 
     // TODO Refatorar Exception handler para outro pacote
