@@ -1,5 +1,7 @@
 package restproject.cadastroapi.entity;
 
+import restproject.cadastroapi.response.CepResponse;
+
 import javax.persistence.*;
 
 @Entity(name = "endereco")
@@ -13,6 +15,15 @@ public class EnderecoEntity {
     private String complemento;
     private String localidade;
     private String uf;
+
+    public EnderecoEntity() { }
+
+    public EnderecoEntity(CepResponse cepResponse) {
+        this.logradouro = cepResponse.getLogradouro();
+        this.complemento = cepResponse.getComplemento();
+        this.localidade = cepResponse.getLocalidade();
+        this.uf = cepResponse.getUf();
+    }
 
     public String getId() { return id; }
 

@@ -6,10 +6,7 @@ create table if not exists endereco (
     uf varchar(2)
 );
 
-create table if not exists pessoa (
-    id_pessoa varchar(100) PRIMARY KEY,
-    nome varchar(100) not null,
-    nascimento date not null,
-    cep varchar(10) not null,
-    endereco varchar(100) references endereco(id_endereco)
-);
+alter table pessoa
+rename column id to id_pessoa;
+
+alter table pessoa add endereco varchar(100) references endereco(id_endereco);
