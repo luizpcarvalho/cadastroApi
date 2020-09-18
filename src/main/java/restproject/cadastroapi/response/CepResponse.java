@@ -8,9 +8,11 @@ public class CepResponse {
     private String uf;
 
     public CepResponse() {
+
     }
 
-    public CepResponse(CepResponse endereco) {
+    public CepResponse(String cep) {
+        CepResponse endereco = new ViaCepResponse(cep).getEndereco();
         this.logradouro = endereco.getLogradouro();
         this.complemento = endereco.getComplemento();
         this.localidade = endereco.getLocalidade();

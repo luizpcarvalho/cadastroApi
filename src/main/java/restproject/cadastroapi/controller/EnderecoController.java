@@ -16,7 +16,7 @@ public class EnderecoController {
     }
 
     public static EnderecoEntity salvarEndereco(String cep, String id){
-        CepResponse cepResponse = new CepResponse(ViaCepResponse.obterEndereco(cep));
+        CepResponse cepResponse = new CepResponse(cep);
         EnderecoEntity endereco = new EnderecoEntity(cepResponse);
         endereco.setId(id);
         enderecoRepository.save(endereco);
