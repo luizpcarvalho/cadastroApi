@@ -34,7 +34,7 @@ public class PessoaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PessoaResponse salvarPessoa(@Valid @RequestBody PessoaRequest pessoaRequest) {
-        EnderecoEntity endereco = EnderecoController.salvarEndereco(pessoaRequest.getCep(), pessoaRequest.getId());
+        EnderecoEntity endereco = EnderecoService.salvarEndereco(pessoaRequest.getCep());
         PessoaEntity pessoaEntity = new PessoaEntity(pessoaRequest.getId(), pessoaRequest.getNome(), LocalDate.parse(pessoaRequest.getNascimento(), FORMATO_BR), pessoaRequest.getCep(), endereco);
         pessoaRepository.save(pessoaEntity);
         PessoaResponse pessoaResponse = new PessoaResponse(pessoaRequest.getId());

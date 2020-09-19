@@ -1,5 +1,5 @@
 create table if not exists endereco (
-    id_endereco varchar(100) PRIMARY KEY,
+    id_endereco bigserial PRIMARY KEY,
     logradouro varchar(100),
     complemento varchar(50),
     localidade varchar(20),
@@ -9,4 +9,4 @@ create table if not exists endereco (
 alter table pessoa
 rename column id to id_pessoa;
 
-alter table pessoa add endereco varchar(100) references endereco(id_endereco);
+alter table pessoa add endereco bigint references endereco(id_endereco);

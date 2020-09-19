@@ -9,7 +9,8 @@ public class EnderecoEntity {
 
     @Id
     @Column(name = "id_endereco")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String logradouro;
     private String complemento;
@@ -25,9 +26,9 @@ public class EnderecoEntity {
         this.uf = cepResponse.getUf();
     }
 
-    public String getId() { return id; }
+    public Long getId() { return id; }
 
-    public void setId(String id) { this.id = id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getLogradouro() { return logradouro; }
 
