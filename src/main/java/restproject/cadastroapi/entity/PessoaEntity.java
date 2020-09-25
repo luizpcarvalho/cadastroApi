@@ -14,6 +14,7 @@ public class PessoaEntity {
         this.id = UUID.randomUUID().toString();
         this.nome = pessoaRequest.getNome();
         this.nascimento = LocalDate.parse(pessoaRequest.getNascimento(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.cep = pessoaRequest.getCep();
         this.endereco = endereco;
     }
 

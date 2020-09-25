@@ -23,7 +23,7 @@ public class EnderecoService {
         CepResponse cepResponse = cepService.findCep(cep);
 
         EnderecoEntity endereco = new EnderecoEntity(cepResponse);
-        enderecoRepository.save(endereco);
+        endereco = enderecoRepository.save(endereco);
 
         return endereco;
     }
