@@ -1,10 +1,21 @@
 package restproject.cadastroapi.entity;
 
+import restproject.cadastroapi.request.PessoaRequest;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Entity(name = "pessoa")
 public class PessoaEntity {
+
+    public PessoaEntity(final PessoaRequest pessoaRequest, final EnderecoEntity endereco) {
+        this.id = UUID.randomUUID().toString();
+        this.nome = pessoaRequest.getNome();
+        this.nascimento = LocalDate.parse(pessoaRequest.getNascimento(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.endereco = endereco;
+    }
 
     @Id
     @Column(name = "id_pessoa")

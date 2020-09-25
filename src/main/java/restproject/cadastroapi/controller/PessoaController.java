@@ -1,17 +1,16 @@
 package restproject.cadastroapi.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import restproject.cadastroapi.entity.EnderecoEntity;
-import restproject.cadastroapi.entity.PessoaEntity;
-import restproject.cadastroapi.response.ApiErrorResponse;
+import restproject.cadastroapi.core.service.PessoaService;
 import restproject.cadastroapi.request.PessoaRequest;
+import restproject.cadastroapi.response.ApiErrorResponse;
 import restproject.cadastroapi.response.PessoaResponse;
-import restproject.cadastroapi.repository.PessoaRepository;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,45 +21,35 @@ public class PessoaController {
 
     public static final String BASE_URL = "/pessoas";
 
+    @Autowired
+    private PessoaService pessoaService;
+
     // TODO Criar annotation para validar data
     public static final DateTimeFormatter FORMATO_BR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static PessoaRepository pessoaRepository;
-
-    public PessoaController(PessoaRepository pessoaRepository) {
-        this.pessoaRepository = pessoaRepository;
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PessoaResponse salvarPessoa(@Valid @RequestBody PessoaRequest pessoaRequest) {
-        EnderecoEntity endereco = EnderecoService.salvarEndereco(pessoaRequest.getCep());
-        PessoaEntity pessoaEntity = new PessoaEntity(pessoaRequest.getId(), pessoaRequest.getNome(), LocalDate.parse(pessoaRequest.getNascimento(), FORMATO_BR), pessoaRequest.getCep(), endereco);
-        pessoaRepository.save(pessoaEntity);
-        PessoaResponse pessoaResponse = new PessoaResponse(pessoaRequest.getId());
-        return pessoaResponse;
+    public ResponseEntity<PessoaResponse> salvarPessoa(@Valid @RequestBody PessoaRequest pessoaRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.salvarPessoa(pessoaRequest));
     }
 
     // TODO Definir payload a ser retornado para este método, quais atributos?
     @GetMapping
-    public List<PessoaEntity> listarPessoas(){
-        List<PessoaEntity> pessoas = new ArrayList<>();
-        pessoaRepository.findAll().forEach(pessoa -> {
-            pessoas.add(pessoa);
-        });
-        return pessoas;
+    public ResponseEntity<List<PessoaResponse>> listarPessoas() {
+        // Falta tratar cenarios de badrequest, notfound e etc
+        return ResponseEntity.ok(pessoaService.findAll());
     }
 
     @GetMapping("/{id}")
-    public PessoaEntity buscarPessoa(@PathVariable(name = "id") String id){
-        PessoaEntity pessoaEntity = pessoaRepository.findById(id).get();
-        return pessoaEntity;
+    public ResponseEntity<PessoaResponse> buscarPessoa(@PathVariable(name = "id") String id) {
+        // Falta tratar cenarios de badrequest, notfound e etc
+        return ResponseEntity.ok(pessoaService.findById(id));
     }
 
     // TODO Refatorar Exception handler para outro pacote
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public List<ApiErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException e){
+    public List<ApiErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException e) {
         List<ApiErrorResponse> erros = new ArrayList<>();
         e.getBindingResult().getFieldErrors().forEach(er -> {
             ApiErrorResponse erro = new ApiErrorResponse();
