@@ -1,7 +1,11 @@
 package restproject.cadastroapi.entity;
 
+import restproject.cadastroapi.request.PessoaRequest;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Entity(name = "pessoa")
 public class PessoaEntity {
@@ -22,11 +26,11 @@ public class PessoaEntity {
 
     public PessoaEntity(){}
 
-    public PessoaEntity(String id, String nome, LocalDate nascimento, String cep, EnderecoEntity endereco) {
-        this.id = id;
-        this.nome = nome;
-        this.nascimento = nascimento;
-        this.cep = cep;
+    public PessoaEntity(PessoaRequest pessoaRequest, EnderecoEntity endereco) {
+        this.id = UUID.randomUUID().toString();
+        this.nome = pessoaRequest.getNome();
+        this.nascimento = LocalDate.parse(pessoaRequest.getNascimento(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.cep = pessoaRequest.getCep();
         this.endereco = endereco;
     }
 

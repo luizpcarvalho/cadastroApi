@@ -2,29 +2,30 @@ package restproject.cadastroapi.response;
 
 public class CepResponse {
 
-    private String logradouro;
+    private String rua;
     private String complemento;
-    private String localidade;
-    private String uf;
+    private String cidade;
+    private String estado;
+    private String ddd;
 
     public CepResponse() {
 
     }
 
-    public CepResponse(String cep) {
-        CepResponse endereco = new ViaCepResponse(cep).getEndereco();
-        this.logradouro = endereco.getLogradouro();
-        this.complemento = endereco.getComplemento();
-        this.localidade = endereco.getLocalidade();
-        this.uf = endereco.getUf();
+    public CepResponse(final ViaCepResponse viaCep) {
+        this.rua = viaCep.getLogradouro();
+        this.complemento = viaCep.getComplemento();
+        this.cidade = viaCep.getLocalidade();
+        this.estado = viaCep.getUf();
+        this.ddd = viaCep.getDdd();
     }
 
-    public String getLogradouro() {
-        return logradouro;
+    public String getRua() {
+        return rua;
     }
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
     public String getComplemento() {
@@ -35,20 +36,27 @@ public class CepResponse {
         this.complemento = complemento;
     }
 
-    public String getLocalidade() {
-        return localidade;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setLocalidade(String localidade) {
-        this.localidade = localidade;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    public String getUf() {
-        return uf;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setUf(String uf) {
-        this.uf = uf;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
+    public String getDdd() {
+        return ddd;
+    }
+
+    public void setDdd(String ddd) {
+        this.ddd = ddd;
+    }
 }

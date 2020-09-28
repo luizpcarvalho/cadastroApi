@@ -4,6 +4,8 @@ public class PessoaResponse {
 
     private String id;
 
+    public PessoaResponse() { }
+
     public PessoaResponse(String id) {
         this.id = id;
     }

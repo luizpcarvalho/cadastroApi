@@ -20,10 +20,10 @@ public class EnderecoEntity {
     public EnderecoEntity() { }
 
     public EnderecoEntity(CepResponse cepResponse) {
-        this.logradouro = cepResponse.getLogradouro();
+        this.logradouro = cepResponse.getRua();
         this.complemento = cepResponse.getComplemento();
-        this.localidade = cepResponse.getLocalidade();
-        this.uf = cepResponse.getUf();
+        this.localidade = cepResponse.getCidade();
+        this.uf = cepResponse.getEstado();
     }
 
     public Long getId() { return id; }
