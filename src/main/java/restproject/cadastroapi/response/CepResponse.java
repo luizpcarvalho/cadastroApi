@@ -7,6 +7,7 @@ public class CepResponse {
     private String cidade;
     private String estado;
     private String ddd;
+    private String cep;
 
     public CepResponse() {
 
@@ -18,6 +19,7 @@ public class CepResponse {
         this.cidade = viaCep.getLocalidade();
         this.estado = viaCep.getUf();
         this.ddd = viaCep.getDdd();
+        this.cep = viaCep.getCep();
     }
 
     public String getRua() {
@@ -59,4 +61,8 @@ public class CepResponse {
     public void setDdd(String ddd) {
         this.ddd = ddd;
     }
+
+    public String getCep() { return cep; }
+
+    public void setCep(String cep) { this.cep = cep; }
 }

@@ -6,4 +6,5 @@ import restproject.cadastroapi.entity.EnderecoEntity;
 
 @Repository
 public interface EnderecoRepository extends JpaRepository<EnderecoEntity, String> {
+    EnderecoEntity findByCep(String cep);
 }

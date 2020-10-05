@@ -27,4 +27,8 @@ public class EnderecoService {
         return endereco;
     }
 
+    public EnderecoEntity findByCep(String cep){
+        return enderecoRepository.findByCep(cep);
+    }
+
 }

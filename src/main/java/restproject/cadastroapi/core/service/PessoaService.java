@@ -21,7 +21,13 @@ public class PessoaService {
     private EnderecoService enderecoService;
 
     public PessoaResponse salvarPessoa(final PessoaRequest pessoaRequest){
-        EnderecoEntity enderecoEntity = enderecoService.salvarEndereco(pessoaRequest.getCep());
+        EnderecoEntity enderecoEntity;
+
+        if(enderecoService.findByCep(pessoaRequest.getCep()) != null){
+            enderecoEntity = enderecoService.findByCep(pessoaRequest.getCep());
+        } else {
+            enderecoEntity = enderecoService.salvarEndereco(pessoaRequest.getCep());
+        }
 
         PessoaEntity pessoaEntity = new PessoaEntity(pessoaRequest, enderecoEntity);
 
