@@ -21,9 +21,6 @@ public class PessoaController {
 
     public static final String BASE_URL = "/pessoas";
 
-    // TODO Criar annotation para validar data
-    //public static final DateTimeFormatter FORMATO_BR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
     @Autowired
     public PessoaService pessoaService;
 
